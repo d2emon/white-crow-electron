@@ -145,7 +145,36 @@
       </v-card>
     </v-dialog>
 
-    <v-footer app>Footer</v-footer>
+    <v-footer app fixed>
+      <v-layout row wrap>
+        <v-flex md3>
+          Игрок №{{ game.turnId() }}
+        </v-flex>
+        <v-flex md3>
+          Тур №{{ game.round }}
+        </v-flex>
+        <v-flex md3>
+          <v-layout row wrap>
+            <v-flex md6>
+              Дата:
+            </v-flex>
+            <v-flex md6>
+              <v-text-field name="lb-field-date" single-line readonly label="#1044#1072#1090#1072:" :value="player.fieldDate.id"></v-text-field>
+            </v-flex>
+          </v-layout>
+        </v-flex>
+        <v-flex md3>
+          <v-layout row wrap>
+            <v-flex md6>
+              День:
+            </v-flex>
+            <v-flex md6>
+              <v-text-field name="lb-field-names" single-line readonly label="#1055#1086#1083#1077:" :value="player.fieldDate.caption"></v-text-field>
+            </v-flex>
+          </v-layout>
+        </v-flex>
+      </v-layout>
+    </v-footer>
   </v-app>
 </template>
 
