@@ -35,41 +35,6 @@
     </v-dialog>
 
     <v-container grid-list-md text-xs-center>
-      <v-toolbar dark color="primary">
-        <v-avatar size="36px">
-          <img :src="game.player().avatar" alt="">
-        </v-avatar>
-        <v-toolbar-title class="white--text">{{ game.player().name }}</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-tooltip bottom>
-          <v-btn icon slot="activator" @click="turnClick">
-            <v-icon>casino</v-icon>
-          </v-btn>
-          <span>Next Turn</span>
-        </v-tooltip>
-        <v-tooltip bottom>
-          <v-btn icon slot="activator">
-            <v-icon>attach_money</v-icon>
-          </v-btn>
-          <span>Bank</span>
-        </v-tooltip>
-        <v-tooltip bottom>
-          <v-btn icon slot="activator" @click="fieldClick">
-            <v-icon>today</v-icon>
-          </v-btn>
-          <span>Field</span>
-        </v-tooltip>
-        <v-tooltip bottom>
-          <v-btn icon slot="activator">
-            <v-badge overlap color="red">
-              <span slot="badge">{{ game.player().mails }}</span>
-              <v-icon>mail</v-icon>
-            </v-badge>
-          </v-btn>
-          <span>Mails</span>
-        </v-tooltip>
-      </v-toolbar>
-
       <v-layout row wrap>
         <v-flex md12>
           <v-card>
@@ -107,8 +72,7 @@
                 </v-card>
               </v-flex>
               <v-flex md9 id="pn-players">
-              <v-card no-body>
-              <v-tabs v-model="activePlayer">
+              <v-tabs v-model="game.activePlayer">
                 <v-tabs-bar class="primary" dark>
                   <v-tabs-item v-for="player in players" :key="player.id" :href="'#' + player.id" ripple>
                     <v-avatar size="24px">
@@ -195,7 +159,6 @@
                   </v-tabs-content>
                 </v-tabs-items>
               </v-tabs>
-              </v-card>
               </v-flex>
             </v-layout>
           </v-card>
@@ -219,7 +182,7 @@ export default {
       count: 3,
       promptPlayers: true,
       players: game.players,
-      activePlayer: ''
+      activePlayer: game.activePlayer
     }
   },
   methods: {
@@ -242,7 +205,7 @@ export default {
       game.nextTurn()
       alert(game.turnId())
       this.player = game.player()
-      this.activePlayer = '' + game.playerId
+      // this.activePlayer = '' + game.playerId
       this.useDay()
     },
     fieldClick: function () {
@@ -268,6 +231,7 @@ export default {
       for (var i = 0; i < count; i++) {
         game.addPlayer('' + i, 'Player ' + (i + 1))
       }
+      game.nextRound()
       this.updateForm()
     },
     setPlayerNames: function (e) {

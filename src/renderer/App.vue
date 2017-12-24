@@ -46,7 +46,6 @@
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
         <span class="hidden-xs-only">Белая Ворона</span>
       </v-toolbar-title>
-      <v-text-field light solo prepend-icon="search" placeholder="Искать" style="max-width: 500px; min-width: 128px"></v-text-field>
       <div class="d-flex align-center" style="margin-left: auto">
         <v-btn icon to="/">
            <v-icon>home</v-icon>
@@ -57,9 +56,39 @@
         <v-btn icon>
           <v-icon>notifications</v-icon>
         </v-btn>
-        <v-btn icon large>
-          <v-avatar size="32px" tile>
-            <img src="https://vuetifyjs.com/static/doc-images/logo.svg" alt="Vuetify">
+        <v-spacer></v-spacer>
+        <v-tooltip bottom>
+          <v-btn icon slot="activator" @click="nextTurn">
+            <v-icon>casino</v-icon>
+          </v-btn>
+          <span>Next Turn</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <v-btn icon slot="activator">
+            <v-icon>attach_money</v-icon>
+          </v-btn>
+          <span>Bank</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <v-btn icon slot="activator" @click="showField">
+            <v-icon>today</v-icon>
+          </v-btn>
+          <span>Field</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <v-btn icon slot="activator">
+            <v-badge overlap color="red">
+              <span slot="badge">{{ player.mails }}</span>
+              <v-icon>mail</v-icon>
+            </v-badge>
+          </v-btn>
+          <span>Mails</span>
+        </v-tooltip>
+        <v-spacer></v-spacer>
+        <v-btn flat large>
+          {{ player.name }}
+          <v-avatar size="32px">
+            <img :src="player.avatar" :alt="player.name">
           </v-avatar>
         </v-btn>
       </div>
@@ -124,11 +153,28 @@
 import 'vuetify/dist/vuetify.min.css'
 import 'font-awesome/css/font-awesome.css'
 
+var GameModule = require('@/store/game')
+var game = GameModule.game
+
 export default {
   name: 'white-crow',
+  computed: {
+    player: function () {
+      if (!game.player()) {
+        return {
+          name: 'Player',
+          avatar: 'https://vuetifyjs.com/static/doc-images/logo.svg',
+          mails: 0
+        }
+      }
+
+      return game.player()
+    }
+  },
   data: () => ({
     dialog: false,
     drawer: null,
+    game: game,
     items: [
       { icon: 'contacts', text: 'Contacts' },
       { icon: 'history', text: 'Frequently contacted' },
@@ -161,7 +207,25 @@ export default {
       { icon: 'phonelink', text: 'App downloads' },
       { icon: 'keyboard', text: 'Go to the old version' }
     ]
-  })
+  }),
+  methods: {
+    nextTurn: function () {
+      game.nextTurn()
+      alert(game.turnId())
+      // this.player = game.player()
+      game.activePlayer = '' + game.playerId
+      this.useDay()
+    },
+    showField: function () {
+      alert('Field click')
+      // fmField.Show;
+    },
+    useDay: function () {
+      if (!game.player()) { return }
+      game.player().fieldDate.useDay()
+      // this.updateForm()
+    }
+  }
 }
 </script>
 

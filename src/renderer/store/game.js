@@ -9,6 +9,7 @@ var game = {
   turnId: function () {
     return this.playerId + 1
   },
+  activePlayer: '',
 
   players: [],
   player: function () {
@@ -33,7 +34,7 @@ var game = {
     // Self.FMessages.Fill;
 
     this.createPlayers(players)
-    this.nextTurn()
+    this.nextRound()
   },
 
   nextRound: function () {
