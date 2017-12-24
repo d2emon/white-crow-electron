@@ -93,7 +93,7 @@
           <v-btn icon slot="activator">
             <v-badge overlap color="red">
               <span slot="badge">{{ player.items }}</span>
-              <v-icon>mail</v-icon>
+              <v-icon>work</v-icon>
             </v-badge>
           </v-btn>
           <span>Items</span>
