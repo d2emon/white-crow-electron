@@ -1,4 +1,5 @@
 var gravatar = require('gravatar')
+var Field = require('./field')
 
 function createPlayer (id, name) {
   return {
@@ -11,13 +12,11 @@ function createPlayer (id, name) {
       account: 0
     },
     day: 0,
-    // Field:     TGameField;
-    // field: this.field,
     // FieldDate: TFieldDate;
     fieldDate: {
       id: 0,
       caption: '0',
-      useDay: function () {
+      useDay: function (player) {
         alert('Use day')
       },
       cost: 0
@@ -62,8 +61,6 @@ function createPlayer (id, name) {
     mails: 0,
     items: 0,
 
-    create: function (name) {
-    },
     addBill: function (post) {
       /*
       if (!this.tickets[post.fromId].payed) {
@@ -72,6 +69,7 @@ function createPlayer (id, name) {
       */
     },
     doPost: function () {
+      this.mails += 1
       /*
       this.post.nextCard
       this.mail.addFromCard(this.post.currentMessage)
@@ -110,13 +108,13 @@ function createPlayer (id, name) {
       if (this.day >= 31) { this.newMonth() }
       this.day += this.dice.roll()
       if (this.day >= 31) { this.day = 31 }
-      // this.fieldDate = this.field.locations[this.day]
+
+      this.fieldDate = Field.getDate(this.day)
 
       this.total.cost = this.fieldDate.cost
       this.money.cash += this.total.cost
 
-      // if (this.fieldDate.dateType == dtPost) { this.doPost() }
-      // if (this.fieldDate.dateType == dtEnd) { this.nextMonth() }
+      this.fieldDate.useDay(this)
     },
     newMonth: function () {
       this.day = 0

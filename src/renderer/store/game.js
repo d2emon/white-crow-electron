@@ -1,4 +1,5 @@
-var player = require('./player')
+var Player = require('./player')
+var Field = require('./field')
 
 var game = {
   length: 0,
@@ -16,7 +17,7 @@ var game = {
     return this.players[this.playerId]
   },
 
-  field: null,
+  field: Field.field,
 
   count: 0,
   mails: [],
@@ -51,12 +52,15 @@ var game = {
 
     this.playerId = this.turn
     this.activePlayer = '' + this.playerId
+
+    alert(this.player().name)
+
     this.player().turn()
     // this.nextRound()
   },
 
   addPlayer: function (id, name) {
-    var p = player.createPlayer(id, name)
+    var p = Player.createPlayer(id, name)
     this.players.push(p)
   },
 

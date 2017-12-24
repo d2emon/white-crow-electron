@@ -147,24 +147,17 @@
 
     <v-footer app fixed>
       <v-layout row wrap>
-        <v-flex md3>
+        <v-flex md2>
           Игрок №{{ game.turnId() }}
         </v-flex>
-        <v-flex md3>
+        <v-flex md2>
           Тур №{{ game.round }}
         </v-flex>
-        <v-flex md3 v-if="player">
+        <v-flex md2 v-if="player">
           День {{ player.day }}
         </v-flex>
-        <v-flex md3 v-if="player.fieldDate">
-          <v-layout row wrap>
-            <v-flex md6>
-              День:
-            </v-flex>
-            <v-flex md6>
-              <v-text-field name="lb-field-names" single-line readonly label="#1055#1086#1083#1077:" :value="player.fieldDate.caption"></v-text-field>
-            </v-flex>
-          </v-layout>
+        <v-flex md6 v-if="player.fieldDate">
+          <v-text-field name="lb-field-names" single-line readonly label="#1055#1086#1083#1077:" :value="player.fieldDate.caption"></v-text-field>
         </v-flex>
       </v-layout>
     </v-footer>
@@ -233,19 +226,13 @@ export default {
   methods: {
     nextTurn: function () {
       game.nextTurn()
-      alert(game.turnId())
       // this.player = game.player()
       game.activePlayer = '' + game.playerId
-      this.useDay()
+      // this.updateForm()
     },
     showField: function () {
       alert('Field click')
       // fmField.Show;
-    },
-    useDay: function () {
-      if (!game.player()) { return }
-      game.player().fieldDate.useDay()
-      // this.updateForm()
     }
   }
 }

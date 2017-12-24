@@ -37,39 +37,8 @@
     <v-container grid-list-md text-xs-center>
       <v-layout row wrap>
         <v-flex md12>
-          <v-card>
-            <v-layout row wrap>
-              <v-flex md3>
-                <v-card v-if="players.length > 0">
-                  <v-form>
-                    <v-layout row wrap>
-                      <v-flex md12>
-                        Игрок №{{ game.turnId() }}
-                      </v-flex>
-                    </v-layout>
-                    <v-layout row wrap>
-                      <v-flex md12>
-                        Тур №{{ game.round }}
-                      </v-flex>
-                    </v-layout>
-                    <v-layout row wrap>
-                      <v-flex md12>
-                        День {{ game.player().day }}
-                      </v-flex>
-                    </v-layout>
-                    <v-layout row wrap>
-                      <v-flex md6>
-                        День:
-                      </v-flex>
-                      <v-flex md6>
-                        <v-text-field name="lb-field-names" single-line readonly label="#1055#1086#1083#1077:" :value="fieldName"></v-text-field>
-                      </v-flex>
-                    </v-layout>
-                  </v-form>
-                </v-card>
-              </v-flex>
-              <v-flex md9 id="pn-players">
-              <v-tabs v-model="game.activePlayer">
+          <v-card id="pn-players">
+            <v-tabs v-model="game.activePlayer">
                 <v-tabs-bar class="primary" dark>
                   <v-tabs-item v-for="player in players" :key="player.id" :href="'#' + player.id" ripple>
                     <v-avatar size="24px">
@@ -155,9 +124,7 @@
                     </v-card>
                   </v-tabs-content>
                 </v-tabs-items>
-              </v-tabs>
-              </v-flex>
-            </v-layout>
+            </v-tabs>
           </v-card>
         </v-flex>
       </v-layout>
@@ -234,6 +201,7 @@ export default {
     setPlayerNames: function (e) {
       // game = TWCGame.Create(3, this.count)
       this.promptPlayers = false
+
       game.player().turn()
     },
     startGame: function () {
