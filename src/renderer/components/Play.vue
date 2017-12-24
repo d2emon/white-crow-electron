@@ -72,13 +72,6 @@
 
       <v-layout row wrap>
         <v-flex md12>
-          <v-layout row wrap>
-            OnPaint = FormPaint
-          </v-layout>
-        </v-flex>
-      </v-layout>
-      <v-layout row wrap>
-        <v-flex md12>
           <v-card>
             <v-layout row wrap>
               <v-flex md3>
@@ -230,47 +223,38 @@ export default {
     }
   },
   methods: {
-    formPaint: function (tabIndex) {
-      alert(tabIndex)
+    updateForm: function () {
+      if (!game.player()) { return }
       this.fieldDate = game.player().fieldDate.id
       this.fieldName = game.player().fieldDate.caption
 
-      this.tabIndex = tabIndex
+      // this.activePlayer = '' + tabIndex
       // this.player.bills = game.players[tabIndex].total.bills
 
       // fmField.cdField.Day := Player.Day;
     },
     useDay: function () {
+      if (!game.player()) { return }
       game.player().fieldDate.useDay()
-      // Self.Update;
+      this.updateForm()
     },
     turnClick: function () {
       game.nextTurn()
-      alert(game.playerId)
+      alert(game.turnId())
       this.player = game.player()
       this.activePlayer = '' + game.playerId
       this.useDay()
-    },
-    formActivate: function () {
-      // Self.Update;
     },
     fieldClick: function () {
       alert('Field click')
       // fmField.Show;
     },
     askPlayers: function (count) {
-      var result = []
-
       this.count = count
       this.addPlayers(count)
 
-      console.log(this)
-      console.log(this.$refs)
-      console.log(this.$refs.prompt)
-      // this.$root.$emit('bv::show::modal', 'promptCount')
-      // this.$refs.promptModal.show()
-
-      return result
+      // var result = []
+      // return result
     },
     addPlayers: function (count) {
       if (count <= 0) {
@@ -280,29 +264,23 @@ export default {
       if (count < 2) { return }
       if (count > 16) { return }
 
-      // this.$root.$emit('bv::hide::modal', 'promptCount')
       game.players.length = 0
       for (var i = 0; i < count; i++) {
         game.addPlayer('' + i, 'Player ' + (i + 1))
       }
-      // this.$root.$emit('bv::show::modal', 'promptNames')
-      // this.Count = false
-      // this.showPromptNames = true
+      this.updateForm()
     },
     setPlayerNames: function (e) {
-      e.preventDefault()
-      // this.$root.$emit('bv::hide::modal', 'promptNames')
       // game = TWCGame.Create(3, this.count)
       this.promptPlayers = false
     },
     startGame: function () {
       this.askPlayers(3)
-      // self.players = game.players
+      // this.players = game.players
     }
   },
   created: function () {
     this.startGame()
-    this.formActivate()
   }
 }
 </script>

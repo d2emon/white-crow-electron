@@ -1,7 +1,10 @@
 var gravatar = require('gravatar')
 
 var game = {
+  length: 0,
   round: 0,
+  turn: 0,
+
   playerId: 0,
   turnId: function () {
     return this.playerId + 1
@@ -14,26 +17,41 @@ var game = {
 
   field: null,
 
-  create: function () {
+  count: 0,
+  mails: [],
+
+  create: function (players) {
     this.players.length = 0
     this.round = 0
-    this.playerId = 0
-  },
+    this.turn = -1
 
-  count: 0,
+    this.playerId = 0
+
+    // White Crow
+    this.field = null // TWCField.Create
+    this.messages = [] // TMessageList.Create;
+    // Self.FMessages.Fill;
+
+    this.createPlayers(players)
+    this.nextTurn()
+  },
 
   nextRound: function () {
     this.round++
+    this.turn = 0
     this.playerId = 0
   },
+
   nextTurn: function () {
     this.turn++
-    if (this.playerId < (this.players.length - 1)) {
-      this.playerId++
-    } else {
+    if (this.turn >= this.players.length) {
       this.nextRound()
     }
+
+    this.playerId = this.turn
+    // this.nextRound()
   },
+
   addPlayer: function (id, name) {
     var p = {
       id: id,
@@ -59,9 +77,19 @@ var game = {
       },
       dice: {
         score: 0
-      }
+      },
+
+      // Links
+      field: this.field,
+      mail: this.messages
     }
     this.players.push(p)
+  },
+
+  addPlayers: function (players) {
+    for (var i = 0; i < players.length; i++) {
+      this.addPlayer('' + i, 'Player ' + (i + 1))
+    }
   }
 }
 
