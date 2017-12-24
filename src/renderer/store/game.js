@@ -1,3 +1,5 @@
+var gravatar = require('gravatar')
+
 var game = {
   round: 0,
   playerId: 0,
@@ -36,7 +38,7 @@ var game = {
     var p = {
       id: id,
       name: name,
-      avatar: 'https://vuetifyjs.com/static/doc-images/logo.svg',
+      avatar: gravatar.url(name, { d: 'retro' }), // 'https://www.gravatar.com/avatar/' + name + '?d=retro',
       day: 0,
       bank: 0,
       mails: 0,
