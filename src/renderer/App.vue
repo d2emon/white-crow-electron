@@ -41,6 +41,11 @@
       </v-list>
     </v-navigation-drawer>
 
+    <!-- v-btn fab bottom right color="pink" dark fixed @click.stop="nextTurn" -->
+    <v-btn fab bottom right dark fixed @click.stop="nextTurn">
+      <v-icon>casino</v-icon>
+    </v-btn>
+
     <v-toolbar color="blue darken-3" dark app clipped-left fixed >
       <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 300px; min-width: 250px' : 'min-width: 72px'" class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
@@ -84,6 +89,15 @@
           </v-btn>
           <span>Mails</span>
         </v-tooltip>
+        <v-tooltip bottom>
+          <v-btn icon slot="activator">
+            <v-badge overlap color="red">
+              <span slot="badge">{{ player.items }}</span>
+              <v-icon>mail</v-icon>
+            </v-badge>
+          </v-btn>
+          <span>Items</span>
+        </v-tooltip>
         <v-spacer></v-spacer>
         <v-btn flat large>
           {{ player.name }}
@@ -100,51 +114,6 @@
       </v-container>
     </v-content>
 
-    <v-btn fab bottom right color="pink" dark fixed @click.stop="dialog = !dialog">
-      <v-icon>add</v-icon>
-    </v-btn>
-
-    <v-dialog v-model="dialog" width="800px">
-      <v-card>
-        <v-card-title class="grey lighten-4 py-4 title">
-          Create contact
-        </v-card-title>
-        <v-container grid-list-sm class="pa-4">
-          <v-layout row wrap>
-            <v-flex xs12 align-center justify-space-between>
-              <v-layout align-center>
-                <v-avatar size="40px" class="mr-3">
-                  <img src="//ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png" alt="">
-                </v-avatar>
-                <v-text-field placeholder="Name"></v-text-field>
-              </v-layout>
-            </v-flex>
-            <v-flex xs6>
-              <v-text-field prepend-icon="business" placeholder="Company"></v-text-field>
-            </v-flex>
-            <v-flex xs6>
-              <v-text-field placeholder="Job title"></v-text-field>
-            </v-flex>
-            <v-flex xs12>
-              <v-text-field prepend-icon="mail" placeholder="Email"></v-text-field>
-            </v-flex>
-            <v-flex xs12>
-              <v-text-field type="tel" prepend-icon="phone" placeholder="(000) 000 - 0000" mask="phone"></v-text-field>
-            </v-flex>
-            <v-flex xs12>
-              <v-text-field prepend-icon="notes" placeholder="Notes"></v-text-field>
-            </v-flex>
-          </v-layout>
-        </v-container>
-        <v-card-actions>
-          <v-btn flat color="primary">More</v-btn>
-          <v-spacer></v-spacer>
-          <v-btn flat color="primary" @click="dialog = false">Cancel</v-btn>
-          <v-btn flat @click="dialog = false">Save</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
     <v-footer app fixed>
       <v-layout row wrap>
         <v-flex md2>
@@ -157,7 +126,7 @@
           День {{ player.day }}
         </v-flex>
         <v-flex md6 v-if="player.fieldDate">
-          <v-text-field name="lb-field-names" single-line readonly label="#1055#1086#1083#1077:" :value="player.fieldDate.caption"></v-text-field>
+          <v-text-field name="lb-field-names" single-line readonly :value="player.fieldDate.caption"></v-text-field>
         </v-flex>
       </v-layout>
     </v-footer>

@@ -73,6 +73,7 @@ function createBusinessDay (date) {
     cost: 0,
     useDay: function (player) {
       alert('BUSINESS')
+      player.items += 1
     }
   }
 }

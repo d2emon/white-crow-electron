@@ -98,6 +98,8 @@ function createPlayer (id, name) {
       */
     },
     turn: function () {
+      alert(this.name)
+
       for (var i = 1; i <= 2; i++) {
         this.tickets[i].active = false
       }

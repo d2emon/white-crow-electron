@@ -53,8 +53,6 @@ var game = {
     this.playerId = this.turn
     this.activePlayer = '' + this.playerId
 
-    alert(this.player().name)
-
     this.player().turn()
     // this.nextRound()
   },
