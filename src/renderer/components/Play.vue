@@ -36,6 +36,9 @@
 
     <v-container grid-list-md text-xs-center>
       <v-toolbar dark color="primary">
+        <v-avatar size="36px">
+          <img :src="game.player().avatar" alt="">
+        </v-avatar>
         <v-toolbar-title class="white--text">{{ game.player().name }}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-tooltip bottom>
@@ -58,7 +61,10 @@
         </v-tooltip>
         <v-tooltip bottom>
           <v-btn icon slot="activator">
-            <v-icon>mail</v-icon>
+            <v-badge overlap color="red">
+              <span slot="badge">{{ game.player().mails }}</span>
+              <v-icon>mail</v-icon>
+            </v-badge>
           </v-btn>
           <span>Mails</span>
         </v-tooltip>
@@ -112,7 +118,14 @@
               <v-tabs v-model="activePlayer">
                 <v-tabs-bar class="primary" dark>
                   <v-tabs-item v-for="player in players" :key="player.id" :href="'#' + player.id" ripple>
-                    {{ player.name }}
+                    <v-avatar size="24px">
+                      <img :src="player.avatar" alt="">
+                    </v-avatar>
+                    <v-badge v-if="player == game.player()" overlap color="red">
+                      <span slot="badge"><v-icon>check</v-icon></span>
+                      {{ player.name }}
+                    </v-badge>
+                    <span v-else>{{ player.name }}</span>
                   </v-tabs-item>
                   <v-tabs-slider color="yellow"></v-tabs-slider>
                 </v-tabs-bar>
