@@ -80,6 +80,26 @@
       </v-card>
     </v-dialog>
 
+    <v-dialog id="next-player" v-model="nextPlayer" transition="dialog-bottom-transition" fullscreen scrollable text-md-center>
+      <v-card class="text-xs-center">
+        <v-card-title class="grey py-4 title">
+          Новый ход
+        </v-card-title>
+        <v-container grid-list-sm class="pa-4">
+          <v-card class="ma-5">
+            <v-card-text>
+              <h1 class="display-4">{{ game.player().name }}</h1>
+            </v-card-text>
+            <v-card-actions>
+              <div style="width: 100%;">
+                <v-btn large color="primary" @click="beginTurn">Ok</v-btn>
+              </div>
+            </v-card-actions>
+          </v-card>
+        </v-container>
+      </v-card>
+    </v-dialog>
+
     <v-container grid-list-md text-xs-center>
       <v-layout row wrap>
         <v-flex md12>
@@ -184,6 +204,11 @@ var game = GameModule.game
 
 export default {
   name: 'play',
+  computed: {
+    nextPlayer: function () {
+      return game.player().active
+    }
+  },
   data: function () {
     return {
       game: game,
@@ -250,11 +275,14 @@ export default {
       // game = TWCGame.Create(3, this.count)
       this.promptPlayers = false
 
-      game.player().turn()
+      game.player().showSplash()
     },
     startGame: function () {
       this.askPlayers(3)
       // this.players = game.players
+    },
+    beginTurn: function () {
+      game.player().turn()
     }
   },
   created: function () {

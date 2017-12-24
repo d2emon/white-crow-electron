@@ -6,6 +6,7 @@ function createPlayer (id, name) {
     id: id,
     name: name,
     avatar: gravatar.url(name, { d: 'retro' }), // 'https://www.gravatar.com/avatar/' + name + '?d=retro',
+    active: false,
     // Money:     TMoney;
     money: {
       cash: 325,
@@ -97,9 +98,11 @@ function createPlayer (id, name) {
       }
       */
     },
+    showSplash: function () {
+      this.active = true
+    },
     turn: function () {
-      alert(this.name)
-
+      this.active = false
       for (var i = 1; i <= 2; i++) {
         this.tickets[i].active = false
       }
