@@ -1,4 +1,4 @@
-var gravatar = require('gravatar')
+var player = require('./player')
 
 var game = {
   length: 0,
@@ -50,40 +50,13 @@ var game = {
     }
 
     this.playerId = this.turn
+    this.activePlayer = '' + this.playerId
+    this.player().turn()
     // this.nextRound()
   },
 
   addPlayer: function (id, name) {
-    var p = {
-      id: id,
-      name: name,
-      avatar: gravatar.url(name, { d: 'retro' }), // 'https://www.gravatar.com/avatar/' + name + '?d=retro',
-      day: 0,
-      bank: 0,
-      mails: 0,
-      items: 0,
-      fieldDate: {
-        id: 0,
-        caption: '0',
-        useDay: function () {
-          alert('Use day')
-        }
-      },
-      money: {
-        cash: 325,
-        account: 0
-      },
-      total: {
-        bills: 0
-      },
-      dice: {
-        score: 0
-      },
-
-      // Links
-      field: this.field,
-      mail: this.messages
-    }
+    var p = player.createPlayer(id, name)
     this.players.push(p)
   },
 

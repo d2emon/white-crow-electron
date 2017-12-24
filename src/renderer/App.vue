@@ -153,17 +153,10 @@
         <v-flex md3>
           Тур №{{ game.round }}
         </v-flex>
-        <v-flex md3>
-          <v-layout row wrap>
-            <v-flex md6>
-              Дата:
-            </v-flex>
-            <v-flex md6>
-              <v-text-field name="lb-field-date" single-line readonly label="#1044#1072#1090#1072:" :value="player.fieldDate.id"></v-text-field>
-            </v-flex>
-          </v-layout>
+        <v-flex md3 v-if="player">
+          День {{ player.day }}
         </v-flex>
-        <v-flex md3>
+        <v-flex md3 v-if="player.fieldDate">
           <v-layout row wrap>
             <v-flex md6>
               День:

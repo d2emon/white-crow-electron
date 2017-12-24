@@ -53,11 +53,8 @@
                       </v-flex>
                     </v-layout>
                     <v-layout row wrap>
-                      <v-flex md6>
-                        Дата:
-                      </v-flex>
-                      <v-flex md6>
-                        <v-text-field name="lb-field-date" single-line readonly label="#1044#1072#1090#1072:" :value="fieldDate"></v-text-field>
+                      <v-flex md12>
+                        День {{ game.player().day }}
                       </v-flex>
                     </v-layout>
                     <v-layout row wrap>
@@ -135,7 +132,7 @@
                             Банк:
                           </v-flex>
                           <v-flex md8>
-                          <v-text-field name="player-bank" single-line readonly label="Bank" :value="player.bank"></v-text-field>
+                          <v-text-field name="player-bank" single-line readonly label="Bank" :value="player.total.bank"></v-text-field>
                           </v-flex>
                         </v-layout>
                         <v-layout row wrap>
@@ -237,6 +234,7 @@ export default {
     setPlayerNames: function (e) {
       // game = TWCGame.Create(3, this.count)
       this.promptPlayers = false
+      game.player().turn()
     },
     startGame: function () {
       this.askPlayers(3)
