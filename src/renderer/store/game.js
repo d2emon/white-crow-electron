@@ -10,7 +10,7 @@ var game = {
   turnId: function () {
     return this.playerId + 1
   },
-  activePlayer: '',
+  activePlayer: '0',
 
   players: [],
   player: function () {
