@@ -75,7 +75,13 @@
           <span>Bank</span>
         </v-tooltip>
         <v-tooltip bottom>
-          <v-btn icon slot="activator" @click="showField">
+          <v-btn icon slot="activator" v-if="player.day" @click="showField">
+           <v-badge overlap>
+              <span slot="badge">{{ player.day }}</span>
+              <v-icon>today</v-icon>
+            </v-badge>
+          </v-btn>
+          <v-btn  v-else icon slot="activator" @click="showField">
             <v-icon>today</v-icon>
           </v-btn>
           <span>Field</span>

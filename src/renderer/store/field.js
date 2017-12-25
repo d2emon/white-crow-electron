@@ -26,6 +26,7 @@ function createPostDay (date) {
     date: date,
     dateType: dtPost,
     caption: 'Почта',
+    message: 'У вас новое сообщение',
     cost: 0,
     useDay: function (player) {
       // fmPost.ShowPost(fmPlay.Player.Messages.CurrentMessage);
@@ -70,9 +71,9 @@ function createBusinessDay (date) {
     date: date,
     dateType: dtBusiness,
     caption: 'Бизнес',
+    message: 'У вас новое предложение',
     cost: 0,
     useDay: function (player) {
-      alert('BUSINESS')
       player.items += 1
     }
   }
@@ -83,9 +84,9 @@ function createClientDay (date) {
     date: date,
     dateType: dtClient,
     caption: 'Клиент',
+    message: 'У вас новое предложение',
     cost: 0,
     useDay: function (player) {
-      alert('CLIENT')
     }
   }
 }
@@ -95,21 +96,20 @@ function createFreeDay (date) {
     date: date,
     dateType: dtFree,
     caption: 'Выходной',
+    message: '',
     cost: 0,
-    useDay: function (player) {
-    }
+    useDay: function (player) {}
   }
 }
 
-function createPayableDay (date, caption, cost) {
+function createPayableDay (date, caption, cost, message) {
   return {
     date: date,
     dateType: dtFree,
     caption: caption,
+    message: message,
     cost: cost,
-    useDay: function (player) {
-      alert(caption)
-    }
+    useDay: function (player) {}
   }
 }
 
@@ -136,48 +136,109 @@ var field = {
       dateType: dtFree,
       caption: 'Старт',
       cost: 0,
-      useDay: function (player) {
-        //
-      }
+      useDay: function (player) {}
     },
     createPostDay(1),
-    createPayableDay(2, 'Давно забытая заначка', 500),
+    createPayableDay(
+      2,
+      'Давно забытая заначка',
+      500,
+      'Вы нашли давно забытую заначку - 500 монет'
+    ),
     createPostDay(3),
     createBusinessDay(4),
     createPostDay(5),
-    createPayableDay(6, 'Капкан для охотника', -50),
+    createPayableDay(
+      6,
+      'Капкан для охотника',
+      -50,
+      'Скиньтесь на капкан для охотника - 50 монет'
+    ),
 
     createFreeDay(7),
-    createPayableDay(8, 'Премия-Сюрприз', 100),
+    createPayableDay(
+      8,
+      'Премия-Сюрприз',
+      100,
+      'Вам неожиданно выдали премию - 100 монет'
+    ),
     createClientDay(9),
-    { date: 10, dateType: dtAuction, caption: 'caption', cost: 0, useDay: useDayAuction },
+    {
+      date: 10,
+      dateType: dtAuction,
+      caption: 'Аукцион',
+      message: 'День аукциона',
+      cost: 0,
+      useDay: useDayAuction
+    },
     createPostDay(11),
     createBusinessDay(12),
-    createPayableDay(13, 'Танцевальная студия', -40),
+    createPayableDay(
+      13,
+      'Танцевальная студия',
+      -40,
+      'Посетите танцеваьную студию - 40 монет'
+    ),
 
     createFreeDay(14),
     createBusinessDay(15),
     createPostDay(16),
     createClientDay(17),
-    createPayableDay(18, 'Ремонт норы', -75),
+    createPayableDay(
+      18,
+      'Ремонт норы',
+      -50,
+      'Оплатите ремонт норы - 50 монет'
+    ),
     createPostDay(19),
     createClientDay(20),
 
     createFreeDay(21),
     createPostDay(22),
-    createPayableDay(23, 'Магазин "Мяу-Мяу" для кошек', -75),
+    createPayableDay(
+      23,
+      'Магазин "Мяу-Мяу" для кошек',
+      -75,
+      'Вы потратили в магазине 75 монет'
+    ),
     createPostDay(24),
-    { date: 25, dateType: dtElection, caption: 'caption', cost: 0, useDay: useDayElection },
+    {
+      date: 25,
+      dateType: dtElection,
+      caption: 'День Выборов',
+      message: 'Выборы Царя Зверей',
+      cost: 0,
+      useDay: useDayElection
+    },
     createBusinessDay(26),
-    { date: 27, dateType: dtSeason, caption: 'caption', cost: 0 },
+    {
+      date: 27,
+      dateType: dtSeason,
+      caption: 'Сезонная линька',
+      message: 'У всех сезонная линька',
+      cost: 0,
+      useDay: function (player) {
+        //
+      }
+    },
 
     createFreeDay(28),
-    { date: 29, dateType: dtTirage, caption: 'caption', cost: 0 },
+    {
+      date: 29,
+      dateType: dtTirage,
+      caption: 'День Тиража',
+      message: 'Тираж облигации лесного займа',
+      cost: 0,
+      useDay: function (player) {
+        //
+      }
+    },
     createClientDay(30),
     {
       date: 31,
       dateType: dtEnd,
       caption: 'День Белой Вороны',
+      message: 'Время подводить итоги',
       cost: 325,
       useDay: function (player) {
         // fmBalance.ShowBalance(fmPlay.Player)

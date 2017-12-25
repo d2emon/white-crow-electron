@@ -22,6 +22,23 @@
       </v-card>
     </v-dialog>
 
+    <v-dialog v-model="motd" max-width="500px">
+      <v-card v-if="game.player()">
+        <v-card-title>
+          День {{ game.player().day }}
+        </v-card-title>
+        <v-card-text>
+          <h1>{{ game.player().fieldDate.caption }}</h1>
+          <div>
+            {{ game.player().fieldDate.message }}
+          </div>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="primary" flat @click.stop="motd=false">Ok</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <v-container grid-list-md text-xs-center>
       <v-layout row wrap>
         <v-flex md12>
@@ -147,8 +164,7 @@ export default {
       count: 3,
       players: game.players,
       activePlayer: game.activePlayer,
-
-      dialog: false
+      motd: false
     }
   },
   methods: {
@@ -180,6 +196,7 @@ export default {
     },
     beginTurn: function () {
       game.player().turn()
+      this.motd = true
     }
   }
 }
