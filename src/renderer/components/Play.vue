@@ -62,69 +62,195 @@
                     <v-card flat>
                       <v-card-text>
                         <v-layout row wrap>
-                          <v-flex md4>
-                            Игрок:
-                          </v-flex>
-                          <v-flex md8>
-                          <v-text-field name="player-name" single-line readonly label="Name" :value="player.name"></v-text-field>
+                          <v-flex md12>
+                            <h1>{{ player.name }}</h1>
                           </v-flex>
                         </v-layout>
                         <v-layout row wrap>
-                          <v-flex md4>
-                            Наличные:
+                          <v-flex md6>
+                            <v-card>
+                          
+                            <v-layout row wrap>
+                              <v-flex md3>
+                                Игрок:
+                              </v-flex>
+                              <v-flex md3>
+                                <v-text-field name="player-name" single-line readonly label="Name" :value="player.name"></v-text-field>
+                              </v-flex>
+                            </v-layout>
+                            <v-layout row wrap>
+                              <v-flex md3>
+                                Наличные:
+                              </v-flex>
+                              <v-flex md3>
+                                <v-text-field name="player-money" single-line readonly label="Money" :value="player.money.cash"></v-text-field>
+                              </v-flex>
+                            </v-layout>
+                            <v-layout row wrap>
+                              <v-flex md3>
+                                В банке:
+                              </v-flex>
+                              <v-flex md3>
+                                <v-text-field name="player-account" single-line readonly label="Account" :value="player.money.account"></v-text-field>
+                              </v-flex>
+                            </v-layout>
+                            <v-layout row wrap>
+                              <v-flex md3>
+                                День:
+                              </v-flex>
+                              <v-flex md3>
+                                <v-text-field name="player-day" single-line readonly label="Day" :value="player.day"></v-text-field>
+                              </v-flex>
+                            </v-layout>
+                            <v-layout row wrap>
+                              <v-flex md3>
+                                Бросок:
+                              </v-flex>
+                              <v-flex md3>
+                                <v-text-field name="player-dice" single-line readonly label="Dice" :value="player.dice.score"></v-text-field>
+                              </v-flex>
+                            </v-layout>
+                            <v-layout row wrap>
+                              <v-flex md3>
+                                Банк:
+                              </v-flex>
+                              <v-flex md3>
+                                <v-text-field name="player-bank" single-line readonly label="Bank" :value="player.total.bank"></v-text-field>
+                              </v-flex>
+                            </v-layout>
+                            </v-card>
                           </v-flex>
-                          <v-flex md8>
-                          <v-text-field name="player-money" single-line readonly label="Money" :value="player.money.cash"></v-text-field>
+                          <v-flex md6>
+                            <v-card>
+                                <v-card>
+                                  <v-toolbar color="primary" dark>
+                                    <v-toolbar-title>Письма</v-toolbar-title>
+                                    <v-spacer></v-spacer>
+                                    <v-toolbar-title>{{ player.mails }}</v-toolbar-title>
+                                    <v-btn icon>
+                                      <v-icon>search</v-icon>
+                                    </v-btn>
+                                  </v-toolbar>
+                                  <v-list two-line>
+                                    <v-subheader v-text="'Today'"></v-subheader>
+                                    <template v-for="mail in player.mail">
+                                      <v-list-tile avatar v-bind:key="mail.title" @click="">
+                                        <v-list-tile-avatar>
+                                          <img v-bind:src="mail.avatar">
+                                        </v-list-tile-avatar>
+                                        <v-list-tile-content>
+                                          <v-list-tile-title v-html="mail.title"></v-list-tile-title>
+                                          <v-list-tile-sub-title v-html="mail.subtitle"></v-list-tile-sub-title>
+                                        </v-list-tile-content>
+                                      </v-list-tile>
+                                    </template>
+                                    <v-subheader v-text="'Today'"></v-subheader>
+                                    <template v-for="mail in player.mail">
+                                      <v-list-tile avatar v-bind:key="mail.title" @click="">
+                                        <v-list-tile-avatar>
+                                          <img v-bind:src="mail.avatar">
+                                        </v-list-tile-avatar>
+                                        <v-list-tile-content>
+                                          <v-list-tile-title v-html="mail.title"></v-list-tile-title>
+                                          <v-list-tile-sub-title v-html="mail.subtitle"></v-list-tile-sub-title>
+                                        </v-list-tile-content>
+                                      </v-list-tile>
+                                    </template>
+                                  </v-list>
+                                </v-card>
+                                <br>
+                                <v-card>
+                                  <v-toolbar color="primary" dark>
+                                    <v-toolbar-title>Товары</v-toolbar-title>
+                                    <v-spacer></v-spacer>
+                                    <v-toolbar-title>{{ player.items }}</v-toolbar-title>
+                                    <v-btn icon>
+                                      <v-icon>search</v-icon>
+                                    </v-btn>
+                                  </v-toolbar>
+                                  <v-list two-line>
+                                    <template v-for="item in player.item">
+                                      <v-list-tile avatar v-bind:key="item.title" @click="">
+                                        <v-list-tile-avatar>
+                                          <img v-bind:src="item.avatar">
+                                        </v-list-tile-avatar>
+                                        <v-list-tile-content>
+                                          <v-list-tile-title v-html="item.title"></v-list-tile-title>
+                                          <v-list-tile-sub-title v-html="item.subtitle"></v-list-tile-sub-title>
+                                        </v-list-tile-content>
+                                      </v-list-tile>
+                                    </template>
+                                  </v-list>
+                                </v-card>
+
+                            </v-card>
                           </v-flex>
                         </v-layout>
-                        <v-layout row wrap>
-                          <v-flex md4>
-                            В банке:
-                          </v-flex>
-                          <v-flex md8>
-                          <v-text-field name="player-account" single-line readonly label="Account" :value="player.money.account"></v-text-field>
-                          </v-flex>
-                        </v-layout>
-                        <v-layout row wrap>
-                          <v-flex md4>
-                            День:
-                          </v-flex>
-                          <v-flex md8>
-                          <v-text-field name="player-day" single-line readonly label="Day" :value="player.day"></v-text-field>
-                          </v-flex>
-                        </v-layout>
-                        <v-layout row wrap>
-                          <v-flex md4>
-                            Бросок:
-                          </v-flex>
-                          <v-flex md8>
-                          <v-text-field name="player-dice" single-line readonly label="Dice" :value="player.dice.score"></v-text-field>
-                          </v-flex>
-                        </v-layout>
-                        <v-layout row wrap>
-                          <v-flex md4>
-                            Банк:
-                          </v-flex>
-                          <v-flex md8>
-                          <v-text-field name="player-bank" single-line readonly label="Bank" :value="player.total.bank"></v-text-field>
-                          </v-flex>
-                        </v-layout>
-                        <v-layout row wrap>
-                          <v-flex md4>
-                            Письма:
-                          </v-flex>
-                          <v-flex md8>
-                          <v-text-field name="player-mails" single-line readonly label="Mails" :value="player.mails"></v-text-field>
-                          </v-flex>
-                        </v-layout>
-                        <v-layout row wrap>
-                          <v-flex md4>
-                            Товары:
-                          </v-flex>
-                          <v-flex md8>
-                          <v-text-field name="player-items" single-line readonly label="Items" :value="player.items"></v-text-field>
-                          </v-flex>
-                        </v-layout>
+                            <v-layout row wrap>
+                              <v-flex md6>
+                                <v-card>
+                                  <v-toolbar color="primary" dark>
+                                    <v-toolbar-title>Письма</v-toolbar-title>
+                                    <v-spacer></v-spacer>
+                                    <v-toolbar-title>{{ player.mails }}</v-toolbar-title>
+                                    <v-btn icon>
+                                      <v-icon>search</v-icon>
+                                    </v-btn>
+                                  </v-toolbar>
+                                  <v-list two-line>
+                                    <v-subheader v-text="'Today'"></v-subheader>
+                                    <template v-for="mail in player.mail">
+                                      <v-list-tile avatar v-bind:key="mail.title" @click="">
+                                        <v-list-tile-avatar>
+                                          <img v-bind:src="mail.avatar">
+                                        </v-list-tile-avatar>
+                                        <v-list-tile-content>
+                                          <v-list-tile-title v-html="mail.title"></v-list-tile-title>
+                                          <v-list-tile-sub-title v-html="mail.subtitle"></v-list-tile-sub-title>
+                                        </v-list-tile-content>
+                                      </v-list-tile>
+                                    </template>
+                                    <v-subheader v-text="'Today'"></v-subheader>
+                                    <template v-for="mail in player.mail">
+                                      <v-list-tile avatar v-bind:key="mail.title" @click="">
+                                        <v-list-tile-avatar>
+                                          <img v-bind:src="mail.avatar">
+                                        </v-list-tile-avatar>
+                                        <v-list-tile-content>
+                                          <v-list-tile-title v-html="mail.title"></v-list-tile-title>
+                                          <v-list-tile-sub-title v-html="mail.subtitle"></v-list-tile-sub-title>
+                                        </v-list-tile-content>
+                                      </v-list-tile>
+                                    </template>
+                                  </v-list>
+                                </v-card>
+                              </v-flex>
+                              <v-flex md6>
+                                <v-card>
+                                  <v-toolbar color="primary" dark>
+                                    <v-toolbar-title>Товары</v-toolbar-title>
+                                    <v-spacer></v-spacer>
+                                    <v-toolbar-title>{{ player.items }}</v-toolbar-title>
+                                    <v-btn icon>
+                                      <v-icon>search</v-icon>
+                                    </v-btn>
+                                  </v-toolbar>
+                                  <v-list two-line>
+                                    <template v-for="item in player.item">
+                                      <v-list-tile avatar v-bind:key="item.title" @click="">
+                                        <v-list-tile-avatar>
+                                          <img v-bind:src="item.avatar">
+                                        </v-list-tile-avatar>
+                                        <v-list-tile-content>
+                                          <v-list-tile-title v-html="item.title"></v-list-tile-title>
+                                          <v-list-tile-sub-title v-html="item.subtitle"></v-list-tile-sub-title>
+                                        </v-list-tile-content>
+                                      </v-list-tile>
+                                    </template>
+                                  </v-list>
+                                </v-card>
+                              </v-flex>
+                            </v-layout>
                       </v-card-text>
                     </v-card>
                   </v-tabs-content>

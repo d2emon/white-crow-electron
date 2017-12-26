@@ -40,6 +40,40 @@ function createPlayer (id, name) {
     },
     // Messages:  TMessageList;
     // mail: this.messages
+    mail: [
+      {
+        title: name,
+        subtitle: 'Mail Subtitle',
+        avatar: gravatar.url(name, { d: 'retro' }) // 'https://www.gravatar.com/avatar/' + name + '?d=retro',
+      },
+      {
+        title: name,
+        subtitle: 'Mail Subtitle',
+        avatar: gravatar.url(name, { d: 'retro' }) // 'https://www.gravatar.com/avatar/' + name + '?d=retro',
+      },
+      {
+        title: name,
+        subtitle: 'Mail Subtitle',
+        avatar: gravatar.url(name, { d: 'retro' }) // 'https://www.gravatar.com/avatar/' + name + '?d=retro',
+      }
+    ],
+    item: [
+      {
+        title: name,
+        subtitle: 'Mail Subtitle',
+        avatar: gravatar.url(name, { d: 'retro' }) // 'https://www.gravatar.com/avatar/' + name + '?d=retro',
+      },
+      {
+        title: name,
+        subtitle: 'Mail Subtitle',
+        avatar: gravatar.url(name, { d: 'retro' }) // 'https://www.gravatar.com/avatar/' + name + '?d=retro',
+      },
+      {
+        title: name,
+        subtitle: 'Mail Subtitle',
+        avatar: gravatar.url(name, { d: 'retro' }) // 'https://www.gravatar.com/avatar/' + name + '?d=retro',
+      }
+    ],
     // Post:      TMessageList;
     tickets: [
       {
