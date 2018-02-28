@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "author": "Dmitry Kutsenko <d2emonium@gmail.com>",
   "description": "White Crow game",
-  "license": null,
+  "license": "GPL-3.0",
   "main": "./dist/electron/main.js",
   "scripts": {
     "build": "node .electron-vue/build.js && electron-builder",
@@ -126,5 +126,16 @@
     "webpack-dev-server": "^2.7.1",
     "webpack-hot-middleware": "^2.18.2",
     "webpack-merge": "^4.1.0"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/d2emon/white-crow-electron.git"
+  },
+  "bugs": {
+    "url": "https://github.com/d2emon/white-crow-electron/issues"
+  },
+  "homepage": "https://github.com/d2emon/white-crow-electron#readme"
 }
