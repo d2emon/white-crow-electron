@@ -9,7 +9,6 @@ const { spawn } = require('child_process')
 const webpack = require('webpack')
 const Multispinner = require('multispinner')
 
-
 const mainConfig = require('./webpack.main.config')
 const rendererConfig = require('./webpack.renderer.config')
 const webConfig = require('./webpack.web.config')
@@ -19,6 +18,7 @@ const errorLog = chalk.bgRed.white(' ERROR ') + ' '
 const okayLog = chalk.bgBlue.white(' OKAY ') + ' '
 const isCI = process.env.CI || false
 
+console.log(process.env.BUILD_TARGET)
 if (process.env.BUILD_TARGET === 'clean') clean()
 else if (process.env.BUILD_TARGET === 'web') web()
 else build()

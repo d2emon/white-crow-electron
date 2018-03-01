@@ -1,46 +1,30 @@
 'use strict'
 
-const chalk = require('chalk')
+// const chalk = require('chalk')
 const electron = require('electron')
 const path = require('path')
-const { say } = require('cfonts')
+// const { say } = require('cfonts')
 const { spawn } = require('child_process')
+
 const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 
-const mainConfig = require('./webpack.main.config')
-const rendererConfig = require('./webpack.renderer.config')
+const mainConfig = require('../.electron-vue/webpack.main.config')
+const rendererConfig = require('../.electron-vue/webpack.renderer.config')
+
+const { logStats, logBold, electronLog } = require('../.electron-vue/log')
+const greeting = require('../.electron-vue/logo')
 
 let electronProcess = null
 let manualRestart = false
 let hotMiddleware
 
-function logStats (proc, data) {
-  let log = ''
-
-  log += chalk.yellow.bold(`┏ ${proc} Process ${new Array((19 - proc.length) + 1).join('-')}`)
-  log += '\n\n'
-
-  if (typeof data === 'object') {
-    data.toString({
-      colors: true,
-      chunks: false
-    }).split(/\r?\n/).forEach(line => {
-      log += '  ' + line + '\n'
-    })
-  } else {
-    log += `  ${data}\n`
-  }
-
-  log += '\n' + chalk.yellow.bold(`┗ ${new Array(28 + 1).join('-')}`) + '\n'
-
-  console.log(log)
-}
-
+// Renderer
 function startRenderer () {
   return new Promise((resolve, reject) => {
-    rendererConfig.entry.renderer = [path.join(__dirname, 'dev-client')].concat(rendererConfig.entry.renderer)
+    rendererConfig.entry.renderer = [path.join(__dirname, 'dev-client')]
+      .concat(rendererConfig.entry.renderer)
 
     const compiler = webpack(rendererConfig)
     hotMiddleware = webpackHotMiddleware(compiler, { 
@@ -77,14 +61,16 @@ function startRenderer () {
   })
 }
 
+// Main part
 function startMain () {
   return new Promise((resolve, reject) => {
-    mainConfig.entry.main = [path.join(__dirname, '../src/main/index.dev.js')].concat(mainConfig.entry.main)
+    mainConfig.entry.main = [path.join(__dirname, '../src/main/index.dev.js')]
+      .concat(mainConfig.entry.main)
 
     const compiler = webpack(mainConfig)
 
     compiler.plugin('watch-run', (compilation, done) => {
-      logStats('Main', chalk.white.bold('compiling...'))
+      logBold('Main', 'compiling...')
       hotMiddleware.publish({ action: 'compiling' })
       done()
     })
@@ -113,8 +99,12 @@ function startMain () {
   })
 }
 
+// Electron
 function startElectron () {
-  electronProcess = spawn(electron, ['--inspect=5858', path.join(__dirname, '../dist/electron/main.js')])
+  electronProcess = spawn(electron, [
+    '--inspect=5858',
+    path.join(__dirname, '../dist/electron/main.js')
+  ])
 
   electronProcess.stdout.on('data', data => {
     electronLog(data, 'blue')
@@ -126,41 +116,6 @@ function startElectron () {
   electronProcess.on('close', () => {
     if (!manualRestart) process.exit()
   })
-}
-
-function electronLog (data, color) {
-  let log = ''
-  data = data.toString().split(/\r?\n/)
-  data.forEach(line => {
-    log += `  ${line}\n`
-  })
-  if (/[0-9A-z]+/.test(log)) {
-    console.log(
-      chalk[color].bold('┏ Electron -------------------') +
-      '\n\n' +
-      log +
-      chalk[color].bold('┗ ----------------------------') +
-      '\n'
-    )
-  }
-}
-
-function greeting () {
-  const cols = process.stdout.columns
-  let text = ''
-
-  if (cols > 104) text = 'electron-vue'
-  else if (cols > 76) text = 'electron-|vue'
-  else text = false
-
-  if (text) {
-    say(text, {
-      colors: ['yellow'],
-      font: 'simple3d',
-      space: false
-    })
-  } else console.log(chalk.yellow.bold('\n  electron-vue'))
-  console.log(chalk.blue('  getting ready...') + '\n')
 }
 
 function init () {
