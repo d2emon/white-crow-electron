@@ -11,8 +11,8 @@ const webpackHotMiddleware = require('webpack-hot-middleware')
 const mainConfig = require('../config/webpack.main.config')
 const rendererConfig = require('../config/webpack.renderer.config')
 
-const { logStats, logBold, electronLog } = require('../build/log')
-const greeting = require('../build/logo')
+const { logStats, logBold, electronLog } = require('../utils/log')
+const greeting = require('../utils/logo')
 
 let electronProcess = null
 let manualRestart = false
