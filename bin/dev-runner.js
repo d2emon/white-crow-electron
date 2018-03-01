@@ -1,20 +1,18 @@
 'use strict'
 
-// const chalk = require('chalk')
 const electron = require('electron')
 const path = require('path')
-// const { say } = require('cfonts')
 const { spawn } = require('child_process')
 
 const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 
-const mainConfig = require('../.electron-vue/webpack.main.config')
-const rendererConfig = require('../.electron-vue/webpack.renderer.config')
+const mainConfig = require('../config/webpack.main.config')
+const rendererConfig = require('../config/webpack.renderer.config')
 
-const { logStats, logBold, electronLog } = require('../.electron-vue/log')
-const greeting = require('../.electron-vue/logo')
+const { logStats, logBold, electronLog } = require('../build/log')
+const greeting = require('../build/logo')
 
 let electronProcess = null
 let manualRestart = false

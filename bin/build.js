@@ -9,9 +9,9 @@ const { spawn } = require('child_process')
 const webpack = require('webpack')
 const Multispinner = require('multispinner')
 
-const mainConfig = require('./webpack.main.config')
-const rendererConfig = require('./webpack.renderer.config')
-const webConfig = require('./webpack.web.config')
+const mainConfig = require('../config/webpack.main.config')
+const rendererConfig = require('../config/webpack.renderer.config')
+const webConfig = require('../config/webpack.web.config')
 
 const doneLog = chalk.bgGreen.white(' DONE ') + ' '
 const errorLog = chalk.bgRed.white(' ERROR ') + ' '
