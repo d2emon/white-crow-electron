@@ -60,4 +60,4 @@ typings/
 yarn.lock
 
 build/*
-dist/electron/*
+dist/*
