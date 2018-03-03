@@ -1,0 +1,3 @@
+[submodule "src/renderer"]
+	path = src/renderer
+	url = git@github.com:d2emon/white-crow-vue.git
